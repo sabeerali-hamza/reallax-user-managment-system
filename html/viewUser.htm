@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+
+        <h2> User List </h2>
+        <div style="border-top:#ccc solid 2px;margin-bottom:15px"></div>
+        <div class="col-lg-4">
+            <div class="form-group has-feedback">
+                <label for="cstm-filter-name" class="control-label">Search</label>
+                <input type="search" id="cstm-filter-name" class="form-control" ng-model="customNameFilter.name" />
+                <span class='glyphicon glyphicon-search form-control-feedback' aria-hidden='true'></span>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group has-feedback">
+                <label for="cstm-filter-name" class="control-label">From Date</label>
+                <datepicker date-format="MM-dd-yyyy"> <input class="form-control" name="fromdate" ng-model="newuser.fromDate" type="text" required/> </datepicker>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group has-feedback">
+                <label for="cstm-filter-name" class="control-label">To Date</label>
+                <datepicker date-format="MM-dd-yyyy"> <input class="form-control" name="toDate" ng-model="newuser.toDate" type="text" required/> </datepicker>
+            </div>
+        </div>
+        <br /> <br />
+    </div>
+</div>
+<div class="container">
+    <table id=" user-details-in-table " data-ng-if="users.length>0" class="table table-striped" ts-wrapper ts-item-name="Name">
+
+        <thead>
+            <tr>
+                <th ts-criteria="name|lowercase" ts-filter ts-default>Name</th>
+                <th ts-criteria="dob|parseDate" ts-filter>DOB</th>
+                <th ts-criteria="singleSelect|lowercase" ts-filter>singleSelect</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users |filter:customNameFilter.name|filter:newuser.fromDate:newuser.toDate" ng-class="{'active':item.Selected}" ts-repeat>
+                <td>{{ user.name }}</td>
+                <td>{{ user.date | date:"MM-dd-yyyy"}}</td>
+                <td>{{ user.singleSelect }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

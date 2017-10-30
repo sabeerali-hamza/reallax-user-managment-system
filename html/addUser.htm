@@ -1,0 +1,100 @@
+<div class="container">
+    <h2> Add User </h2>
+    <div style="border-top:#000 solid 2px"></div>
+</div>
+<div class="container">
+    <div class="col-lg-4 col-md-5">
+        <div class="alert alert-success fade in user-added" ng-if="successMassage == 'User Added Successfully'">
+            <a href="#addUser" class="close" data-dismiss="alert">&times;</a>
+            <strong>{{successMassage}}</strong>
+        </div>
+
+        <div class="login-form">
+            <form name="form" role="form" novalidate>
+
+                <div class="form-group" ng-class="{ 'has-error' : form.name.$invalid && !form.name.$pristine}">
+                    <label for="exampleInputUserName">User Name</label>
+                    <input class="form-control" type="text" name="name" ng-pattern="/[a-zA-Z]+/" ng-model="newuser.name" required/>
+                    <p ng-show="form.name.$invalid && !form.name.$pristine" class="help-block">Enter Valid Name.</p>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.dob.$dirty}">
+                    <label for="exampleInputdob">DOB</label>
+                    <datepicker date-format="MM-dd-yyyy"> <input readonly="readonly" class="form-control" name="date" ng-model="newuser.date" type="text" required/><span class='glyphicon glyphicon-calendar form-control-feedback' aria-hidden='true'></span> </datepicker>
+                    <span ng-show="form.date.$dirty && form.date.$error.date" class="help-block">Date is required!</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.singleSelect.$dirty && form.singleSelect.$error.required }">
+                    <label for="exampleInputdob">Super power </label>
+                    <select class="form-control" name="singleSelect" id="singleSelect" ng-model="newuser.singleSelect" required>
+                                    <option value="">---Please select---</option> <!-- not selected / blank option -->
+                                    <option value="Invisibility">Invisibility</option>
+                                    <option value="Time Travel">Time Travel</option>
+                                    <option value="Absolute Existence">Absolute Existence</option>
+                                    <option value="Additional Limbs">Additional Limbs</option>
+                                  </select>
+                </div>
+                <div class="form-actions">
+                    <button ng-disabled="form.$invalid" type="submit" class="btn btn-primary" ng-click="saveUser()">Add User</button>
+                    <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                    />
+                    <a href="#!/login" class="btn btn-link">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+
+
+    <div class="container">
+        <div class="row">
+            <h2> User List </h2>
+            <div style="border-top:#ccc solid 2px;margin-bottom:15px"></div>
+            <div class="col-lg-4">
+                <div class="form-group has-feedback">
+                    <label for="cstm-filter-name" class="control-label">Search</label>
+                    <input type="search" id="cstm-filter-name" class="form-control" ng-model="customNameFilter.name" />
+                    <span class='glyphicon glyphicon-search form-control-feedback' aria-hidden='true'></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group has-feedback">
+                    <label for="cstm-filter-name" class="control-label">From Date</label>
+                    <datepicker date-format="MM-dd-yyyy"> <input class="form-control" name="fromdate" ng-model="newuser.fromDate" type="text" required/><span class='glyphicon glyphicon-calendar form-control-feedback' aria-hidden='true'></span><span class='glyphicon glyphicon-calendar form-control-feedback'
+                            aria-hidden='true'></span> </datepicker>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group has-feedback">
+                    <label for="cstm-filter-name" class="control-label">To Date</label>
+                    <datepicker date-format="MM-dd-yyyy"> <input class="form-control" name="toDate" ng-model="newuser.toDate" type="text" required/><span class='glyphicon glyphicon-calendar form-control-feedback' aria-hidden='true'></span><span class='glyphicon glyphicon-calendar form-control-feedback'
+                            aria-hidden='true'></span> </datepicker>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <table id=" user-details-in-table " data-ng-if="users.length>0" class="table table-striped" ts-wrapper ts-item-name="Name">
+
+            <thead>
+                <tr>
+                    <th ts-criteria="name|lowercase" ts-filter ts-default>Name</th>
+                    <th ts-criteria="dob|parseDate" ts-filter>DOB</th>
+                    <th ts-criteria="singleSelect|lowercase" ts-filter>Super Power</th>
+                    <th ts-criteria="">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users |filter:customNameFilter.name |filter:customNameFilter.singleSelect|filter:newuser.fromDate:newuser.toDate" ng-class="{'active':item.Selected}" ts-repeat>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.date | date:"MM-dd-yyyy"}}</td>
+                    <td>{{ user.singleSelect }}</td>
+                    <td> <a href="javascript:void(0)" ng-click="edit(user.id)">Edit</a> | <a href="javascript:void(0)" ng-click="delete(user.id)">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

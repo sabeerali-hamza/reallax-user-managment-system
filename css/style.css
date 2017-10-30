@@ -1,0 +1,23 @@
+ .bg-dark {
+     background-color: #343a40 !important;
+     border-width: 0;
+     color: #fff !important;
+     border-radius: 0 !important;
+ }
+ 
+ a.navbar-brand:link,
+ a.navbar-brand:visited,
+ a.navbar-brand:hover,
+ .navbar-nav>li>a:link,
+ .navbar-nav>li>a:visited,
+ .navbar-nav>li>a:hover {
+     color: #fff !important;
+ }
+ 
+ .login-form {
+     margin-top: 30px;
+ }
+ 
+ .user-added {
+     margin-top: 10px;
+ }
